@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/ajacquey/golem-examples:
+      branch: main
+      repo: https://github.com/ajacquey/golem-examples
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/ajacquey/golem-examples git:
+        commands:
+        - /usr/bin/env sh .sqa/script.bumpy-charcoal-skunk.sh
+        container: qc.acc_lovely-orchid-chamois
+  QC.Doc:
+    repos:
+      github.com/ajacquey/golem-examples find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.snoopy-eggplant-stoat.sh
+        container: qc.doc_smelly-teal-mammoth
+      github.com/ajacquey/golem-examples git:
+        commands:
+        - /usr/bin/env sh .sqa/script.nerdy-tangerine-lemur.sh
+        container: qc.doc_goopy-amber-bonobo
+      github.com/ajacquey/golem-examples markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.grumpy-magnolia-llama.sh
+        container: qc.doc_snazzy-scarlet-kudu
+  QC.Lic:
+    repos:
+      github.com/ajacquey/golem-examples licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.gummy-thistle-forest.sh
+        container: qc.lic_hilly-pear-yak
+  QC.Ver:
+    repos:
+      github.com/ajacquey/golem-examples get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.cranky-orange-zorse.sh
+        container: qc.ver_cozy-cinnabar-balinese
+timeout: 5400
